@@ -1,0 +1,80 @@
+group 'com.cc.fup.server'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+repositories {
+	//maven {url "http://repo1.maven.org/maven2/"}
+	mavenCentral()
+	//jcenter()
+}
+
+dependencies {
+        def springVersion		= "4.3.1.RELEASE"
+        def jacksonVersion		= "2.8.0"
+        compile (["activation:activation:1.0.2"],
+                ["antlr:antlr:2.7.7"],
+                ["commons-beanutils:commons-beanutils:1.9.0"],
+                ["commons-codec:commons-codec:1.10"],
+                ["commons-collections:commons-collections:3.2.1"],
+                ["commons-configuration:commons-configuration:1.6"],
+                ["commons-digester:commons-digester:2.1"],
+                ["commons-io:commons-io:2.2"],
+                ["commons-lang:commons-lang:2.6"],
+                ["commons-logging:commons-logging:1.2"],
+                ["commons-net:commons-net:3.3"],
+                ["commons-pool:commons-pool:1.6"],
+                ["org.apache.commons:commons-pool2:2.4.2"],
+                ["dom4j:dom4j:1.6.1"],
+                ["org.apache.httpcomponents:fluent-hc:4.5.1"],
+                ["org.apache.httpcomponents:httpclient:4.5.1"],
+                ["org.apache.httpcomponents:httpclient-cache:4.5.1"],
+                ["org.apache.httpcomponents:httpclient-win:4.5.1"],
+                ["org.apache.httpcomponents:httpcore:4.4.3"],
+                ["org.apache.httpcomponents:httpmime:4.5.1"],
+                ["com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"],
+                ["com.fasterxml.jackson.core:jackson-core:$jacksonVersion"],
+                ["com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"],
+                ["com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jacksonVersion"],
+                ["com.fasterxml.jackson.module:jackson-module-jaxb-annotations:$jacksonVersion"],
+                ["org.jboss:jandex:2.0.0.Final"],
+                ["net.java.dev.jna:jna:4.2.0"],
+                ["net.java.dev.jna:jna-platform:4.2.0"],
+                ["ch.qos.logback:logback-access:1.1.3"],
+                ["ch.qos.logback:logback-classic:1.1.3"],
+                ["ch.qos.logback:logback-core:1.1.3"],
+                ["javax.mail:mail:1.4.7"],
+                ["redis.clients:jedis:2.7.3"],
+                ["org.slf4j:slf4j-api:1.7.12"],
+                ["org.springframework:spring-beans:$springVersion"],
+                ["org.springframework:spring-context:$springVersion"],
+                ["org.springframework:spring-context-support:$springVersion"],
+                ["org.springframework:spring-core:$springVersion"],
+                ["org.springframework:spring-expression:$springVersion"],
+                ["org.springframework:spring-instrument:$springVersion"],
+                ["org.springframework:spring-instrument-tomcat:$springVersion"],
+                ["org.springframework:spring-web:$springVersion"],
+                ["org.springframework:spring-websocket:$springVersion"],
+                ["org.codehaus.woodstox:stax2-api:4.0.0"],
+                ["org.mongodb:mongo-java-driver:3.2.2"])
+        compile fileTree(dir: 'WebRoot/lib', include: '*.jar')
+        providedCompile("javax.servlet:javax.servlet-api:3.1.0")
+        testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+test {
+        systemProperties 'property': 'value'
+}
+
+uploadArchives {
+        repositories {
+                flatDir {
+                        dirs 'repos'
+                }
+        }
+}
+tasks.withType(JavaCompile) {
+        options.encoding = "UTF-8"
+}
